@@ -24,26 +24,39 @@ public class InputControl {
 
         } catch (Exception e) {
 
-            System.out.println("Answer not numerical try again. From 1 to 20.");
-            input = new Scanner(System.in); //this is not the best but scanners are not fun
+            System.out.println("Answer not numerical try again. From 0 to 20.");
+            input = new Scanner(System.in); // this is not the best but scanners are not fun
             return getGuess();
         }
 
     }
 
     public String getName() {
-        return input.next();
+        try {
+            return input.next();
+        } catch (Exception e) {
+            System.out.println("Somehting when wrong try again. Input your name: ");
+            return getName();
+        }
+
     }
 
     public String getYesOrNo() {
 
-        String answer = input.next();
-        if (answer.equals("y") || answer.equals("n"))
-            return answer;
+        try {
+            String answer = input.next();
+            if (answer.equals("y") || answer.equals("n"))
+                return answer;
 
-        System.out.println("Wrong input. y / n");
+            System.out.println("Wrong input. y / n");
 
-        return getYesOrNo();
+            return getYesOrNo();
+
+        } catch (Exception e) {
+            System.out.println("Somehting when wrong try again. y / n? ");
+            return getName();
+        }
+
     }
 
 }
