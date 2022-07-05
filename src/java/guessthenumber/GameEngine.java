@@ -1,13 +1,15 @@
 package guessthenumber;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class GameEngine {
 
     public static final int LOW_BOUND = 0;
     public static final int UP_BOUND = 21;
 
-    private final InputControl input = new InputControl();
+    private final InputControl inputControl = new InputControl();
+    private static Scanner input = new Scanner(System.in);
 
     private Random rand = new Random();
     private int rngNumber = rand.nextInt(UP_BOUND);
@@ -25,21 +27,42 @@ public class GameEngine {
         do {
 
             while ((triesCount < tries) && notDone) {
-               verifyGuess(input.getGuess());
-               triesCount++;
-            }            
+
+                boolean wrong = true;
+                while (wrong) {
+                    try {
+                        verifyGuess(inputControl.getGuess(input.nextInt()));
+                        wrong = false;
+                    } catch (Exception e) {
+                        System.out.println("Answer not numerical try again. From 0 to 20.");
+                        // resets broken scanner
+                        input = new Scanner(System.in);
+                    }
+                }
+
+                triesCount++;
+            }
 
         } while (playAgain());
 
+    }
+
+    public static Scanner getInput() {
+        return input;
+    }
+
+    public static void setInput(Scanner input) {
+        GameEngine.input = input;
     }
 
     private void gameIntroduction() {
 
         System.out.println("Hello! What is your name?");
 
-        name = input.getName();
+        name = input.next();
 
-        System.out.println("Well, " + name +", I am thinking of a number from 0 and 20\nTake a Guess. You have 6 tries");
+        System.out
+                .println("Well, " + name + ", I am thinking of a number from 0 and 20\nTake a Guess. You have 6 tries");
 
     }
 
@@ -47,8 +70,9 @@ public class GameEngine {
 
         if (guess == rngNumber) {
 
-            System.out.println("Congrats " + name + "! " + rngNumber + " was the correct number.\nIt took you " + tries
-                    + " tries to guess the number.");
+            System.out.println(
+                    "Congrats " + name + "! " + rngNumber + " was the correct number.\nIt took you " + triesCount
+                            + " tries to guess the number.");
 
             notDone = false;
 
@@ -68,8 +92,7 @@ public class GameEngine {
 
         System.out.println("Would you like to play again? y / n");
 
-
-       if(input.getYesOrNo().equals("y")) {
+        if (inputControl.getYN(input.next()).equals("y")) {
             reset();
             return true;
         }
@@ -82,6 +105,7 @@ public class GameEngine {
         System.out.println("So you've deciced to play again " + name + ". Take a guess.");
         triesCount = 0;
         rngNumber = rand.nextInt(UP_BOUND);
+        notDone = true;
 
     }
 

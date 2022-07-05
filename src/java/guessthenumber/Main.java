@@ -6,7 +6,7 @@ public class Main {
 
         // Creates new instance of the game engine
         GameEngine game = new GameEngine();
-        //starts playing
+        // starts playing
         game.play();
 
     }
