@@ -1,6 +1,3 @@
-package guessthenumber;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -9,6 +6,9 @@ import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import guessthenumber.GameEngine;
+import guessthenumber.InputControl;
 
 public class InputControlTest {
 

@@ -2,6 +2,13 @@ package guessthenumber;
 
 public class InputControl {
 
+    /**
+     * Makes sure guess is between [0,20] promting for input again when its out of
+     * bounds
+     * 
+     * @param answer - numeric guess from player
+     * @return number between [0, 20]
+     */
     public int getGuess(int answer) {
 
         while (answer < GameEngine.LOW_BOUND || answer > GameEngine.UP_BOUND - 1) {
@@ -15,6 +22,12 @@ public class InputControl {
 
     }
 
+    /**
+     * Makes sure answer is y or n promting for input again when its not
+     * 
+     * @param answer - answer from player
+     * @return y or n
+     */
     public String getYN(String answer) {
         try {
 
